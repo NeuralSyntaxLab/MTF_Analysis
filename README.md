@@ -1,25 +1,42 @@
-The Project aims to measure the quality of the in-lab made miniscope.
-to quantify the quality of the miniscope we use Modulation Transfer Function (MTF).
-The analasys is done by placing the miniscope on a stage made for that propose,
-and using the MTF analysis app that is implemented in this reposatory, take a series of pictures of the airforce target while it is located above the flueorscent slide.
+## Project Overview
+
+This project aims to measure the quality of a lab-made Miniscope.
+To quantify the optical performance of the Miniscope, we use the Modulation Transfer Function (MTF).
+
+The analysis is performed by placing the Miniscope on a dedicated stage designed for this purpose, and using the MTF analysis app provided in this repository. A series of images are captured of an Air Force target positioned over a fluorescent slide.
 
 ![AirForce tagret with different LPS levels](https://github.com/user-attachments/assets/b7c5e5cd-c980-454b-ad8d-6f81b2c97a67)
 
 
-The series of picture should be of different airforce targets, in differeent line pairs per milimeter values (LPS), to create a graph of the regression in contranst as function of 
-decreasing LPS values.
+The image series should include different Air Force targets, each with different line pairs per millimeter (LPS) values. This enables the generation of a graph showing the decline in contrast as a function of increasing spatial frequency (LPS).
 
-ALGORITHM
-After a picture is sent to the algorithm, it is first align the lines to be verticals as much as possible, both by getting help from the user, but also by
-an algorithm that is trying to minimize the x-axis distance between lines. All this process is coded in the preprocess_image.py file.
+#### Algorithm
+Once an image is sent to the algorithm, it is first aligned vertically. This is done with assistance from the user, as well as an automatic alignment process that minimizes the x-axis distance between lines. This alignment step is implemented in the 'preprocess_image.py' file.
 ![The reduce in x-axis distance align the line vertically](https://github.com/user-attachments/assets/14dddbc9-c96f-4b5b-b36a-173ba0c09cfe).
-After aliginig the lines vertically, we averaging the pixel intensity across the y-axis, to get a function of the mean intensity as function of column.
-That way, we reduce the image to 1-d vector, that can be visualize:
+After alignment, we average the pixel intensities along the y-axis to produce a 1D signal representing the mean intensity as a function of column position (x-axis). This reduction simplifies the analysis:
 ![intensity as function of x-axis coordinate](https://github.com/user-attachments/assets/79a179bf-24b3-417c-95fa-5febd242ef9d)
-Then, we can calculate the MTF, whice quantify the contrast between neibhoring peak points, to assess how sharp the picture is. abviously, we excpect the
-score to be higher for lower LPS values.
+We then compute the MTF by measuring the contrast between neighboring peaks in the signal. This contrast quantifies the sharpness of the image. As expected, we anticipate higher MTF scores for targets with lower LPS values.
 ![MTF function](https://github.com/user-attachments/assets/fd0727cb-b91a-42d1-81b2-8dc46e549b57)
+All this part, is implemented in the 'score_photo.py' file.
 
+#### Connecting the Miniscope and Stage Placing
+First, connect the arduino, both with the voltage cable and the 3 colors cable. Then, connect the miniscope with the flux cable to the arduino.
+Place the flourecent slide, in the middle of the airforce target stage, in its dedicated cranny then place the airforce target over it.
+place the miniscope in the holder, and make sure that the holder lower part is as high as it can get, then make sure that the miniscope objective len is in 
+its hole and close the screws on it. make sure that the miniscope is well held and can not move.
+using the 3 handels, steer the airforce target to be directly over an airforce target lines. precise the highet of the miniscope above the target to get
+the maximal resolution.
+
+#### The MTF Analysis App
+
+After pressing start on the home window, you will be asked to choose the LPS targets you want to analyse. Options are all the above 23 options of the 
+airforce target the we have in the lab. We recommend to asses on LPS values from both ends of the scale to see the regression of the MTF score. To change the
+possible LPS values you can change the 'LPS' array variable in the 'main.py' file.
+after confirming the LPS values to asses, the camera window will pop. **If you dont see an image on the window, please check the miniscope connection. if this does not help, try to change the argument for the 'cv2.videoCapture(n)' function in 'main.py' (currently in line 57):
+![VideoCapture](https://github.com/user-attachments/assets/d5250d84-f9fd-4d9b-984c-a73ae7e6cac1)
+
+The first step of the user should be finding the apropriate power of the led light, to get the best results. To turn on the light, you first need to select the currect COM port, then press on the connect bottun:
+![LED control panel](https://github.com/user-attachments/assets/1f1b1d7f-77eb-4c7a-9a2a-7b418d5491a1)
 
 
 
