@@ -16,7 +16,7 @@ Once an image is sent to the algorithm, it is first aligned vertically. This is 
 After alignment, we average the pixel intensities along the y-axis to produce a 1D signal representing the mean intensity as a function of column position (x-axis). This reduction simplifies the analysis:
 ![intensity as function of x-axis coordinate](https://github.com/user-attachments/assets/79a179bf-24b3-417c-95fa-5febd242ef9d)
 We then compute the MTF by measuring the contrast between neighboring peaks, maxima peak and the closest minima peak to its right. The formula for a single pair is:
-$$ \frac{I_{\text{maxima}} - I_{\text{minima}}}{I_{\text{maxima}} + I_{\text{minima}}} $$
+(Imax - Imin) / (Imax + Imin)
 The final score is calculated by the average score of contrast of all maxima-minima pairs. in our standard air force target there should be 5 such pairs for each LPS value.
 This contrast quantifies the sharpness of the image. The score of an image is bounded 0-100, and we anticipate higher MTF scores for targets with lower LPS values.
 ![MTF function](https://github.com/user-attachments/assets/fd0727cb-b91a-42d1-81b2-8dc46e549b57)
