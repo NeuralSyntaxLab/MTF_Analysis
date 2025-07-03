@@ -38,7 +38,7 @@ possible LPS values you can change the 'LPS' array variable in the 'main.py' fil
 after confirming the LPS values to assess, the camera window will pop. **If you dont see an image on the window, 
 please check the miniscope connection. if this does not help, try to change the argument 
 for the 'cv2.videoCapture(n)' function in 'main.py' (currently in line 162)
-[VideoCapture](https://github.com/user-attachments/assets/d5250d84-f9fd-4d9b-984c-a73ae7e6cac1)
+![VideoCapture](https://github.com/user-attachments/assets/d5250d84-f9fd-4d9b-984c-a73ae7e6cac1)
 
 The first step of the user should be finding the apropriate power of the led light, to get the best results. To turn on the light, you first need to select the currect COM port, then press on the connect bottun. You should get a message that the port had a succesful connection. after that, set the LED power using the scale.
 ![LED control panel](https://github.com/user-attachments/assets/1f1b1d7f-77eb-4c7a-9a2a-7b418d5491a1)
