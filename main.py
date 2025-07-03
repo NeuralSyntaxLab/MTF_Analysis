@@ -15,6 +15,8 @@ from PIL import Image, ImageTk
 import serial as ser
 from serial.tools import list_ports
 from score_photo import score_image, score_image_interactive  # Custom image scoring functions
+import sys
+import os
 
 IMAGE_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.bmp', '.gif', '.tiff')
 
@@ -38,8 +40,8 @@ class MiniscopeApp:
         main_frame = tk.Frame(self.home_window, padx=20, pady=20)
         
         # Display an image/logo
-        image_path = "ponny_canary.jpg"
-        img = Image.open(image_path).resize((200, 200))
+        
+        img = Image.open(get_resource_path("app_images/ponny_canary.jpg")).resize((200, 200))
         self.photo = ImageTk.PhotoImage(img)
         img_label = tk.Label(main_frame, image=self.photo)
         img_label.grid(row=1, column=0, columnspan=2, pady=10)
@@ -115,8 +117,8 @@ class MiniscopeApp:
                                           relief="solid", borderwidth=2)
         self.instruction_label.place(relx=0.5, rely=0.5, anchor='center')
 
-        # Camera icon & Capture button
-        icon_img = Image.open("camera_icon.jpg").resize((24, 24))
+        # Camera icon & Capture bu_tton
+        icon_img = Image.open(get_resource_path("app_images/camera_icon.jpg")).resize((24, 24))
         self.camera_icon = ImageTk.PhotoImage(icon_img)
 
         self.capture_button = tk.Button(
@@ -266,6 +268,13 @@ class MiniscopeApp:
             s = ('4n' + chr(int(float(level)))).encode('latin-1')
             self.serial_port.write(s)
 
+def get_resource_path(relative_path):
+    """Get absolute path to resource, works for dev and for PyInstaller."""
+    try:
+        base_path = sys._MEIPASS  # PyInstaller runtime folder
+    except AttributeError:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 def extract_results(lps_list_sorted, score_list_sorted):
     """Save results to CSV and display a plot."""
